@@ -21,7 +21,7 @@ public class Aplicacion extends Application {
 	private Alert acierto;
 	private Alert fallo;
 	private Alert numeroNoValido;
-	int numAdivinar = (int) ((Math.random() * 100) + 1); // TODO no se genera el número correctamente
+	int numAdivinar = (int) ((Math.random() * 100) + 1);
 	int numIntentos = 0;
 
 	@Override
