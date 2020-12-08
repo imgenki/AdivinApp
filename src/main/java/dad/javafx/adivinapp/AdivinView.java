@@ -1,30 +1,25 @@
 package dad.javafx.adivinapp;
 
-import javafx.application.Application;
-import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class Aplicacion extends Application {
-
+public class AdivinView extends VBox{
 	private Button comprobarButton;
 	private TextField numeroText;
 	private Label instruccionesLabel;
 	private Alert acierto;
 	private Alert fallo;
 	private Alert numeroNoValido;
-	int numAdivinar = (int) ((Math.random() * 100) + 1); // Generador del número a Adivinar
-	int numIntentos = 0;
-
-	@Override
-	public void start(Stage primaryStage) throws Exception {
+	
+	public AdivinView (){
+		super();
 		// Campo de texto
 		numeroText = new TextField();
 		numeroText.setPrefColumnCount(5);
@@ -33,33 +28,25 @@ public class Aplicacion extends Application {
 		// Botón
 		comprobarButton = new Button();
 		comprobarButton.setText("Comprobar");
-		comprobarButton.setOnAction(e -> onComprobarButtonAction(e));
 		comprobarButton.setDefaultButton(true);
 		// Label
 		instruccionesLabel = new Label();
 		instruccionesLabel.setTranslateY(-80);
 		instruccionesLabel.setText("Introduce un número del 1 al 100");
-		// Caja
-		VBox root = new VBox();
-		root.setSpacing(5);
-		root.setAlignment(Pos.CENTER);
-		root.getChildren().addAll(numeroText, comprobarButton, instruccionesLabel);
 
-		Scene escena = new Scene(root, 320, 200);
+		setSpacing(5);
+		setAlignment(Pos.CENTER);
+		getChildren().addAll(numeroText, comprobarButton, instruccionesLabel);
 
-		primaryStage.setScene(escena);
-		primaryStage.setTitle("AdivinApp");
-		primaryStage.show();
 
 	}
-
-	private void onComprobarButtonAction(ActionEvent e) {
-
+	
+	public TextField getNumeroText() {
+		return numeroText;
 	}
-
-	// Validador
-	private boolean validate(String text) {
-		return text.matches("[0-9]*");
+	
+	public Button getComprobarButton() {
+		return comprobarButton;
 	}
 	// Ventana de error
 	public void numeroNoValido() {
@@ -91,9 +78,4 @@ public class Aplicacion extends Application {
 		fallo.showAndWait();
 
 	}
-
-	public static void main(String[] args) {
-		launch(args);
-	}
-
 }
