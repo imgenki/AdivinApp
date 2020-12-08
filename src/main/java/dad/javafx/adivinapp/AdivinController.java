@@ -20,17 +20,18 @@ public class AdivinController {
 	}
 
 	private void onComprobarButtonAction(ActionEvent e) {
-		model.setNumIntroducido(Integer.parseInt(view.getNumeroText().textProperty().get()));
-
 		String textIntroducido = view.getNumeroText().getText();
-		if (validate(textIntroducido)) {
-			int numIntroducido = Integer.parseInt(view.getNumeroText().getText());
+
+		try {
+			model.setNumIntroducido(Integer.parseInt(view.getNumeroText().textProperty().get()));
+			int numIntroducido = model.getNumIntroducido();
 			if (numIntroducido > 0 && numIntroducido <= 100) {
 				if (model.getNumAdivinar() == model.getNumIntroducido()) {
-					model.numIntentosProperty().add(1);
+					model.setNumIntentos(model.getNumIntentos() + 1);
 					view.acierto(model.getNumIntentos());
 				} else {
-					model.numIntentosProperty().add(1);
+					model.setNumIntentos(model.getNumIntentos() + 1);
+					;
 					if (model.getNumIntroducido() < model.getNumAdivinar())
 						view.fallo("mayor", model.getNumIntroducido());
 					else
@@ -39,12 +40,9 @@ public class AdivinController {
 			} else {
 				view.numeroNoValido();
 			}
-		} else {
+		} catch (NumberFormatException e1) {
 			view.numeroNoValido();
-		}
-	}
 
-	private boolean validate(String text) {
-		return text.matches("[0-9]*");
+		}
 	}
 }
